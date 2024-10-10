@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="MambaTalk: Efficient Holistic Gesture Synthesis with Selective State Space Models">
+  <meta name="keywords" content="Co-Speech Gesture Generation">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MambaTalk: Efficient Holistic Gesture Synthesis with Selective State Space Models</title>
+
+  <style>
+  .hr {width: 100%; height: 1px; margin: 48px 0; background-color: #d6dbdf;}
+  /* 图片居中样式 */
+.centered-image {
+  display: block; /* 移除图片的内联默认样式 */
+  margin: 0 auto; /* 水平居中 */
+  /* 如果需要，可以添加图片的最大宽度 */
+  max-width: 100%;
+  height: auto;
+  /* 如果需要，添加其他样式 */
+}
+
+  </style>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/bulma.min.css">
+  <link rel="stylesheet" href="./assets/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./assets/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./assets/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="./assets/css/index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+  <!-- custom css file  -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/twentytwenty.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop head">
+      <div class="columns is-centered">
+        <div class="column has-text-centered head">
+          <br>
+
+          <h1 class="title is-2 publication-title">
+            MambaTalk: Efficient Holistic Gesture Synthesis with Selective State Space Models
+          </h1>
+          <h2 class="subtitle is-5" style="color: #ff3860; margin-bottom: 12px; margin-top: -12px;">NeurlPS 2024</h2>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <b>Zunnan Xu,</b>&nbsp;
+              <b>Yukang Lin,</b>&nbsp;
+              <b>Haonan Han,</b>&nbsp;
+              <b>Sicheng Yang,</b>&nbsp;
+              <b>Ronghui Li,</b>&nbsp;
+              <b>Yachao Zhang,</b>&nbsp;
+              <b>Xiu Li</b>&nbsp;
+            </span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">SIGS, Tsinghua University</span>
+          </div>       
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2403.09471"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2403.09471"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/kkakkkka/MambaTalk"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+
+          </div>             
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <img src="./assets/v1.png" alt="empty" class="centered-image" width="600px">
+        <img src="./assets/v2.png" alt="empty" class="centered-image" width="400px">
+        <h2 class="subtitle has-text-centered">
+          <br>
+          <i><span style="color: orange">MambaTalk</span> is a gesture synthesis framework that leverages selective state space models to efficiently generate high-quality, diverse, and rhythmically synchronized 3D gestures and facial expressions from speech signals, addressing the challenge of high computational complexity.</i>
+        </h2>        
+      </div>
+    </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full">
+          <h3 class="title is-3">Demo</h3>
+      </div>
+    </div>
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="twentytwenty-container" data-orientation="horizontal" ratio="0.5556">
+          <div class="desc"><b>Sequence-1</b></div>
+          <div class="item">      
+            <div class="btn-video">
+              <video id="1r" src="./assets/mambatalk/001.mp4" frameborder="0" autoplay muted playsinline loop allowfullscreen></video>
+            </div>
+          </div>
+        </div>
+        <div class="twentytwenty-container" data-orientation="horizontal" ratio="0.5556">
+          <div class="desc"><b>Sequence-2</b></div>
+          <div class="item">
+            <div class="btn-video">
+              <video id="2r" src="./assets/mambatalk/002.mp4" frameborder="0" autoplay muted playsinline loop allowfullscreen></video>
+            </div>
+          </div>
+        </div>
+        <div class="twentytwenty-container" data-orientation="horizontal" ratio="0.5556">
+          <div class="desc"><b>Sequence-3</b></div>
+          <div class="item">
+            <div class="btn-video">
+              <video id="3r" src="./assets/mambatalk/003.mp4" frameborder="0" autoplay muted playsinline loop allowfullscreen></video>
+            </div>
+          </div>
+        </div>
+        <div class="twentytwenty-container" data-orientation="horizontal" ratio="0.5556">
+          <div class="desc"><b>Sequence-4</b></div>
+          <div class="item">      
+            <div class="btn-video">
+              <video id="4r" src="./assets/mambatalk/004.mp4" frameborder="0" autoplay muted playsinline loop allowfullscreen></video>
+            </div>
+          </div>
+        </div>
+        <div class="twentytwenty-container" data-orientation="horizontal" ratio="0.5556">
+          <div class="desc"><b>Sequence-5</b></div>
+          <div class="item">      
+            <div class="btn-video">
+              <video id="5r" src="./assets/mambatalk/005.mp4" frameborder="0" autoplay muted playsinline loop allowfullscreen></video>
+            </div>
+          </div>
+        </div>
+        <div class="twentytwenty-container" data-orientation="horizontal" ratio="0.5556">
+          <div class="desc"><b>Sequence-6</b></div>
+          <div class="item">
+            <div class="btn-video">
+              <video id="6r" src="./assets/mambatalk/006.mp4" frameborder="0" autoplay muted playsinline loop allowfullscreen></video>
+            </div>
+          </div>
+        </div>  
+        <div class="twentytwenty-container" data-orientation="horizontal" ratio="0.5556">
+          <div class="desc"><b>Sequence-7</b></div>
+          <div class="item">
+            <div class="btn-video">
+              <video id="6r" src="./assets/mambatalk/007.mp4" frameborder="0" autoplay muted playsinline loop allowfullscreen></video>
+            </div>
+          </div>
+        </div>  
+        <div class="twentytwenty-container" data-orientation="horizontal" ratio="0.5556">
+          <div class="desc"><b>Sequence-8</b></div>
+          <div class="item">
+            <div class="btn-video">
+              <video id="6r" src="./assets/mambatalk/008.mp4" frameborder="0" autoplay muted playsinline loop allowfullscreen></video>
+            </div>
+          </div>
+        </div>                   
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 
+
+<section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@article{xu2024mambatalk,
+    title={Mambatalk: Efficient holistic gesture synthesis with selective state space models},
+    author={Xu, Zunnan and Lin, Yukang and Han, Haonan and Yang, Sicheng and Li, Ronghui and Zhang, Yachao and Li, Xiu},
+    journal={arXiv preprint arXiv:2403.09471},
+    year={2024}
+}</code></pre>
+    </div>
+  </section>
+
+<footer class="footer">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <div class="columns is-centered"><p>
+            This website template is borrowed from <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">ProPainter</a>.
+          </p></div>
+        </div>
+      </div>
+    </div>
+</footer>
+
+  <!-- custom js file  -->
+  <script defer src="./assets/js/fontawesome.all.min.js"></script>
+  <script src="./assets/js/bulma-carousel.min.js"></script>
+  <script src="./assets/js/bulma-slider.min.js"></script>
+  <script src="./assets/js/index.js"></script>
+  <script src="./assets/js/jquery.event.move.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const vid1b = document.getElementById('1b');
+      const vid2b = document.getElementById('2b');
+      const vid3b = document.getElementById('3b');
+      const vid4b = document.getElementById('4b');
+      const vid5b = document.getElementById('5b');
+      const vid6b = document.getElementById('6b');
+      const vid7b = document.getElementById('7b');
+      const vid9b = document.getElementById('9b');
+      const vid10b = document.getElementById('10b');
+      const vid11b = document.getElementById('11b');
+      const vid12b = document.getElementById('12b');
+      const vid13b = document.getElementById('13b');
+      const vid15b = document.getElementById('15b');
+      const vid16b = document.getElementById('16b');
+      const vid17b = document.getElementById('17b');
+      const vid18b = document.getElementById('18b');
+      const vid20b = document.getElementById('20b');
+      const vid21b = document.getElementById('21b');
+      const vid22b = document.getElementById('22b');
+      const vid23b = document.getElementById('23b');
+      const vid24b = document.getElementById('24b');
+      const vid25b = document.getElementById('25b');
+      const vid27b = document.getElementById('27b');
+      const vid28b = document.getElementById('28b');
+      const vid30b = document.getElementById('30b');
+      const vid1e = document.getElementById('1e');
+      const vid2e = document.getElementById('2e');
+      const vid3e = document.getElementById('3e');
+      const vid4e = document.getElementById('4e');
+      const vid5e = document.getElementById('5e');
+      const vid6e = document.getElementById('6e');
+      const vid7e = document.getElementById('7e');
+      const vid9e = document.getElementById('9e');
+      const vid10e = document.getElementById('10e');
+      const vid11e = document.getElementById('11e');
+      const vid12e = document.getElementById('12e');
+      const vid13e = document.getElementById('13e');
+      const vid15e = document.getElementById('15e');
+      const vid16e = document.getElementById('16e');
+      const vid17e = document.getElementById('17e');
+      const vid18e = document.getElementById('18e');
+      const vid20e = document.getElementById('20e');
+      const vid21e = document.getElementById('21e');
+      const vid22e = document.getElementById('22e');
+      const vid23e = document.getElementById('23e');
+      const vid24e = document.getElementById('24e');
+      const vid25e = document.getElementById('25e');
+      const vid27e = document.getElementById('27e');
+      const vid28e = document.getElementById('28e');
+      const vid30e = document.getElementById('30e');
+      const vid1r = document.getElementById('1r');
+      const vid2r = document.getElementById('2r');
+      const vid3r = document.getElementById('3r');
+      const vid4r = document.getElementById('4r');
+      const vid5r = document.getElementById('5r');
+      const vid6r = document.getElementById('6r');
+      const vid7r = document.getElementById('7r');
+      const vid8r = document.getElementById('8r');
+      // クリックで音声をトグル
+      vid1b.addEventListener('click', function() {
+        toggleAudio(vid1b);
+      });
+      vid2b.addEventListener('click', function() {
+        toggleAudio(vid2b);
+      });
+      vid3b.addEventListener('click', function() {
+        toggleAudio(vid3b);
+      });
+      vid4b.addEventListener('click', function() {
+        toggleAudio(vid4b);
+      });
+      vid5b.addEventListener('click', function() {
+        toggleAudio(vid5b);
+      });
+      vid6b.addEventListener('click', function() {
+        toggleAudio(vid6b);
+      });
+      vid7b.addEventListener('click', function() {
+        toggleAudio(vid7b);
+      });
+      vid9b.addEventListener('click', function() {
+        toggleAudio(vid9b);
+      });
+      vid10b.addEventListener('click', function() {
+        toggleAudio(vid10b);
+      });
+      vid11b.addEventListener('click', function() {
+        toggleAudio(vid11b);
+      });
+      vid12b.addEventListener('click', function() {
+        toggleAudio(vid12b);
+      });
+      vid13b.addEventListener('click', function() {
+        toggleAudio(vid13b);
+      });
+      vid15b.addEventListener('click', function() {
+        toggleAudio(vid15b);
+      });
+      vid16b.addEventListener('click', function() {
+        toggleAudio(vid16b);
+      });
+      vid17b.addEventListener('click', function() {
+        toggleAudio(vid17b);
+      });
+      vid18b.addEventListener('click', function() {
+        toggleAudio(vid18b);
+      });
+      vid20b.addEventListener('click', function() {
+        toggleAudio(vid20b);
+      });
+      vid21b.addEventListener('click', function() {
+        toggleAudio(vid21b);
+      });
+      vid22b.addEventListener('click', function() {
+        toggleAudio(vid22b);
+      });
+      vid23b.addEventListener('click', function() {
+        toggleAudio(vid23b);
+      });
+      vid24b.addEventListener('click', function() {
+        toggleAudio(vid24b);
+      });
+      vid25b.addEventListener('click', function() {
+        toggleAudio(vid25b);
+      });
+      vid27b.addEventListener('click', function() {
+        toggleAudio(vid27b);
+      });
+      vid28b.addEventListener('click', function() {
+        toggleAudio(vid28b);
+      });
+      vid30b.addEventListener('click', function() {
+        toggleAudio(vid30b);
+      });
+      vid1e.addEventListener('click', function() {
+        toggleAudio(vid1e);
+      });
+      vid2e.addEventListener('click', function() {
+        toggleAudio(vid2e);
+      });
+      vid3e.addEventListener('click', function() {
+        toggleAudio(vid3e);
+      });
+      vid4e.addEventListener('click', function() {
+        toggleAudio(vid4e);
+      });
+      vid5e.addEventListener('click', function() {
+        toggleAudio(vid5e);
+      });
+      vid6e.addEventListener('click', function() {
+        toggleAudio(vid6e);
+      });
+      vid7e.addEventListener('click', function() {
+        toggleAudio(vid7e);
+      });
+      vid9e.addEventListener('click', function() {
+        toggleAudio(vid9e);
+      });
+      vid10e.addEventListener('click', function() {
+        toggleAudio(vid10e);
+      });
+      vid11e.addEventListener('click', function() {
+        toggleAudio(vid11e);
+      });
+      vid12e.addEventListener('click', function() {
+        toggleAudio(vid12e);
+      });
+      vid13e.addEventListener('click', function() {
+        toggleAudio(vid13e);
+      });
+      vid15e.addEventListener('click', function() {
+        toggleAudio(vid15e);
+      });
+      vid16e.addEventListener('click', function() {
+        toggleAudio(vid16e);
+      });
+      vid17e.addEventListener('click', function() {
+        toggleAudio(vid17e);
+      });
+      vid18e.addEventListener('click', function() {
+        toggleAudio(vid18e);
+      });
+      vid20e.addEventListener('click', function() {
+        toggleAudio(vid20e);
+      });
+      vid21e.addEventListener('click', function() {
+        toggleAudio(vid21e);
+      });
+      vid22e.addEventListener('click', function() {
+        toggleAudio(vid22e);
+      });
+      vid23e.addEventListener('click', function() {
+        toggleAudio(vid23e);
+      });
+      vid24e.addEventListener('click', function() {
+        toggleAudio(vid24e);
+      });
+      vid25e.addEventListener('click', function() {
+        toggleAudio(vid25e);
+      });
+      vid27e.addEventListener('click', function() {
+        toggleAudio(vid27e);
+      });
+      vid28e.addEventListener('click', function() {
+        toggleAudio(vid28e);
+      });
+      vid30e.addEventListener('click', function() {
+        toggleAudio(vid30e);
+      });
+      vid1r.addEventListener('click', function() {
+        toggleAudio(vid1r);
+      });
+      vid2r.addEventListener('click', function() {
+        toggleAudio(vid2r);
+      });
+      vid3r.addEventListener('click', function() {
+        toggleAudio(vid3r);
+      });
+      vid4r.addEventListener('click', function() {
+        toggleAudio(vid4r);
+      });
+      vid5r.addEventListener('click', function() {
+        toggleAudio(vid5r);
+      });
+      vid6r.addEventListener('click', function() {
+        toggleAudio(vid6r);
+      });
+      vid7r.addEventListener('click', function() {
+        toggleAudio(vid7r);
+      });
+      vid8r.addEventListener('click', function() {
+        toggleAudio(vid8r);
+      });
+    });
+  
+    function toggleAudio(video) {
+      if (video.muted) {
+        video.muted = false;
+      } else {
+        video.muted = true;
+      }
+    }
+  </script>
+</body>
+</html>
