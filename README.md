@@ -12,8 +12,8 @@
 We Recommend a python version `==3.9.21` and cuda version `==12.2`. Then build environment as follows:
 
 ```shell
-# [Optional] Create a virtual env
 git clone https://github.com/kkakkkka/MambaTalk -b main
+# [Optional] Create a virtual env
 conda create -n mambatalk python==3.9.21
 conda activate mambatalk
 # Install ffmpeg for media processing and libstdcxx-ng for rendering
