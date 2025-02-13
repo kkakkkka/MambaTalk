@@ -83,7 +83,7 @@ npy_path="./res_2_scott_0_1_1.npz"
 wav_path="./BEAT2/beat_english_v2.0.0/wave16k/2_scott_0_1_1.wav"
 save_dir="outputs/render"
 
-xvfb-run -a python render_release.py --npy_path $npy_path --wav_path $wav_path --save_dir $save_dir
+xvfb-run -a python render.py --npy_path $npy_path --wav_path $wav_path --save_dir $save_dir
 ```
 
 ### Training of MambaTalk
