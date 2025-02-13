@@ -1,5 +1,7 @@
 # MambaTalk
 
+This is an official PyTorch implementation of [MambaTalk: Efficient Holistic Gesture Synthesis with Selective State Space Models](https://arxiv.org/pdf/2403.09471).
+
 ## 📝 Release Plans
 
 - [X] Inference codes and pretrained weights
@@ -28,7 +30,7 @@ pip install https://github.com/state-spaces/mamba/releases/download/v2.2.4/mamba
 
 ### Download weights
 
-You may run the following command to download weights in ``./pretrained/``:
+You may run the following command to download weights from [Huggingface](https://huggingface.co/xuzn/MambaTalk/tree/main) in ``./pretrained/``:
 
 ```shell
 sudo apt-get update
@@ -70,6 +72,18 @@ After you downloaded BEAT2 dataset, run:
 
 ```shell
 bash run_scripts/test.sh
+```
+
+### Visualize the Generated Results
+
+With generated npy files, you can visualize the results using command below:
+
+```shell
+npy_path="./res_2_scott_0_1_1.npz"
+wav_path="./BEAT2/beat_english_v2.0.0/wave16k/2_scott_0_1_1.wav"
+save_dir="outputs/render"
+
+xvfb-run -a python render_release.py --npy $npy_path --wav $wav_path --save_dir $save_dir
 ```
 
 ### Training of MambaTalk
