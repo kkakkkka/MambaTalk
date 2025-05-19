@@ -33,10 +33,8 @@ pip install https://github.com/state-spaces/mamba/releases/download/v2.2.4/mamba
 You may run the following command to download weights from [Huggingface](https://huggingface.co/xuzn/MambaTalk/tree/main) in ``./pretrained/``:
 
 ```shell
-sudo apt-get update
-sudo apt-get install git-lfs
-git lfs install
-git clone https://huggingface.co/xuzn/MambaTalk pretrained
+pip3 install "huggingface_hub[cli]"
+huggingface-cli download --resume-download kkakkkka/MambaTalk --local-dir pretrained
 ```
 
 These weights should be orgnized as follows:
