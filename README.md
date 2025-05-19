@@ -72,6 +72,45 @@ After you downloaded BEAT2 dataset, run:
 bash run_scripts/test.sh
 ```
 
+### Customized Data
+
+For your own data, you should organize it as follows:
+
+```shell
+.
+├── smplxflame_30
+│   ├── 2_scott_0_1_1.npz
+│   ├── 2_scott_0_2_2.npz
+├── test.csv
+├── textgrid
+│   ├── 2_scott_0_1_1.TextGrid
+│   ├── 2_scott_0_2_2.TextGrid
+├── wave16k
+│   ├── 2_scott_0_1_1.wav
+│   ├── 2_scott_0_2_2.wav
+```
+
+In `test.csv`, please list your files as shown below:
+
+```shell
+id,type
+2_scott_0_1_1,test
+2_scott_0_2_2,test
+```
+
+If you want to generate corresponding TextGrid files from your speech recordings, we recommend installing Montreal Forced Aligner (MFA). These aligned text files should then be used as input alongside your audio files.
+
+```bash
+pip install git+https://github.com/MontrealCorpusTools/Montreal-Forced-Aligner
+conda install -c conda-forge kalpy
+pip install pgvector
+pip install Bio
+mfa model download acoustic english_us_arpa
+mfa model download dictionary english_us_arpa
+# Please put your speech recordings under ./data first
+mfa align ./data english_us_arpa english_us_arpa ./data/result
+```
+
 ### Visualize the Generated Results
 
 With generated npy files, you can visualize the results using command below:
