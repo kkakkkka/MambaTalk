@@ -47,7 +47,7 @@ You can download the pretrained weights from [Huggingface](https://huggingface.c
 
 ```shell
 pip3 install "huggingface_hub[cli]"
-huggingface-cli download --resume-download kkakkkka/MambaTalk --local-dir pretrained
+huggingface-cli download --resume-download thuteam/MambaTalk --local-dir pretrained
 
 ```
 
